@@ -18,4 +18,4 @@ const createStoreWithMiddleware = applyMiddleware(
   createLogger()
 )(createStore)
 
-const api = run(App, document.body, App.init(1), createStoreWithMiddleware)
+const api = run(App, document.body, createStoreWithMiddleware, App.init(1))

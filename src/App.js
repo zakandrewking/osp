@@ -2,11 +2,11 @@
 
 import * as d3 from 'd3'
 import { createView, createActionCreators, createReducer,
-         addressAction, addressRelFrom } from 'tinier'
+         addressAction, addressRelFrom, } from 'tinier'
 import { mapValues } from 'lodash'
 
 import { Title, Pathway, Protein, } from './pages'
-import { CHANGE } from './showHide'
+import * as showHide from './showHide'
 import NavButtons from './NavButtons'
 
 const INC = '@INC'
@@ -42,19 +42,20 @@ export const App = createView({
     }
   },
 
-  actionCreators: createActionCreators([ INC, DEC ]),
+  actionCreators: Object.assign(createActionCreators([ INC, DEC ]),
+                                showHide.actionCreators),
 
   getReducer: (model) => {
     return createReducer({
       [INC]: (state, action) => actions => {
         const newIndex = Math.min(state.currentIndex + 1, state.pages.length - 1)
-        actions[CHANGE](newIndex)
+        actions[showHide.CHANGE](newIndex)
       },
       [DEC]: (state, action) => actions => {
         const newIndex = Math.max(state.currentIndex - 1, 0)
-        actions[CHANGE](newIndex)
+        actions[showHide.CHANGE](newIndex)
       },
-      [CHANGE]: (state, action) => Object.assign({}, state, {
+      [showHide.CHANGE]: (state, action) => Object.assign({}, state, {
         currentIndex: action.payload,
       })
     })
