@@ -10,6 +10,12 @@ module.exports = {
   resolveLoader: { fallback: path.join(__dirname, 'node_modules') },
   devtool: 'source-map',
   module: {
+    preLoaders: [
+      {
+        test: /\/tinier\/lib\/.*\.js$/,
+        loader: 'source-map-loader',
+      }
+    ],
     loaders: [
       {
         test: /\.css$/,
@@ -31,6 +37,10 @@ module.exports = {
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.pdb$/,
+        loader: 'raw-loader',
       }
     ]
   }

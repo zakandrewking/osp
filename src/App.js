@@ -1,7 +1,7 @@
 'use strict'
 
 import * as d3 from 'd3'
-import { createView, createActionCreators, createReducer,
+import { createView, createAsyncActionCreators, createReducer,
          addressAction, addressRelFrom, } from 'tinier'
 import { mapValues } from 'lodash'
 
@@ -26,6 +26,8 @@ function getOrAppend (el, tag, id, attrs = {}) {
 }
 
 export const App = createView({
+  name: 'App',
+
   model: {
     pages: [ Title, Pathway, Protein ],
     navButtons: NavButtons,
@@ -36,30 +38,28 @@ export const App = createView({
     const decActionAddress = addressAction(DEC, addressRelFrom([ 'navButtons' ]))
 
     return {
-      pages: [ Title, Pathway, Protein ].map((view, i) => view.init(i)),
+      pages: [ Title, Pathway, Protein ].map((view, i) => view.init(i, currentIndex)),
       navButtons: NavButtons.init(incActionAddress, decActionAddress),
       currentIndex,
+      lastCurrentIndex: null,
     }
   },
 
-  actionCreators: Object.assign(createActionCreators([ INC, DEC ]),
-                                showHide.actionCreators),
+  actionCreators: Object.assign(
+    createAsyncActionCreators({
+      [INC]: () => (actions, localState) => {
+        const newIndex = Math.min(localState.currentIndex + 1, localState.pages.length - 1)
+        actions[showHide.CHANGE](newIndex)
+      }, //
+      [DEC]: () => (actions, localState) => {
+        const newIndex = Math.max(localState.currentIndex - 1, 0)
+        actions[showHide.CHANGE](newIndex)
+      },
+    }),
+    showHide.actionCreators
+  ),
 
-  getReducer: (model) => {
-    return createReducer({
-      [INC]: (state, action) => actions => {
-        const newIndex = Math.min(state.currentIndex + 1, state.pages.length - 1)
-        actions[showHide.CHANGE](newIndex)
-      },
-      [DEC]: (state, action) => actions => {
-        const newIndex = Math.max(state.currentIndex - 1, 0)
-        actions[showHide.CHANGE](newIndex)
-      },
-      [showHide.CHANGE]: (state, action) => Object.assign({}, state, {
-        currentIndex: action.payload,
-      })
-    })
-  },
+  getReducer: showHide.getReducer,
 
   create: function (localState, appState, el) {
     const sel = d3.select(el).attr('id', 'app')
@@ -68,7 +68,7 @@ export const App = createView({
   update: function (localState, appState, el) {
     return {
       pages: [
-        getOrAppend(el, 'div', 'model',   { class: 'page' }),
+        getOrAppend(el, 'div', 'title',   { class: 'page' }),
         getOrAppend(el, 'div', 'pathway', { class: 'page' }),
         getOrAppend(el, 'div', 'protein', { class: 'page' }),
       ],
