@@ -1,11 +1,10 @@
 'use strict'
 
-import * as d3 from 'd3'
+import d3 from 'd3'
 import { createView, createAsyncActionCreators, createReducer,
          addressAction, addressRelFrom, } from 'tinier'
-import { mapValues } from 'lodash'
 
-import { Title, Pathway, Protein, } from './pages'
+import { Title, Cell, Pathway, Protein, Genome, } from './pages'
 import * as showHide from './showHide'
 import NavButtons from './NavButtons'
 
@@ -19,7 +18,11 @@ function getOrAppend (el, tag, id, attrs = {}) {
     return (sel
             .append(tag)
             .attr('id', id)
-            .call(sel => mapValues(attrs, (val, key) => sel.attr(key, val)))
+            .call(sel => {
+              for (let key in attrs) {
+                sel.attr(key, attrs[key])
+              }
+            })
             .node())
   else
     return child.node()
@@ -29,7 +32,7 @@ export const App = createView({
   name: 'App',
 
   model: {
-    pages: [ Title, Pathway, Protein ],
+    pages: [ Title, Cell, Pathway, Protein, Genome, ],
     navButtons: NavButtons,
   },
 
@@ -38,8 +41,8 @@ export const App = createView({
     const decActionAddress = addressAction(DEC, addressRelFrom([ 'navButtons' ]))
 
     return {
-      pages: [ Title, Pathway, Protein ].map((view, i) => view.init(i, currentIndex)),
-      navButtons: NavButtons.init(incActionAddress, decActionAddress),
+      pages: [ Title, Cell, Pathway, Protein, Genome, ].map((view, i) => view.init(i, currentIndex)),
+      navButtons: NavButtons.init(incActionAddress, decActionAddress, currentIndex),
       currentIndex,
       lastCurrentIndex: null,
     }
@@ -69,12 +72,22 @@ export const App = createView({
     return {
       pages: [
         getOrAppend(el, 'div', 'title',   { class: 'page' }),
+        getOrAppend(el, 'div', 'cell',    { class: 'page' }),
         getOrAppend(el, 'div', 'pathway', { class: 'page' }),
         getOrAppend(el, 'div', 'protein', { class: 'page' }),
+        getOrAppend(el, 'div', 'genome',  { class: 'page' }),
       ],
       navButtons: getOrAppend(el, 'div', 'nav-buttons'),
     }
   },
+
+  getAPI: actions => {
+    return {
+      change: actions[showHide.CHANGE],
+      goIn: actions[INC],
+      goOut: actions[DEC],
+    }
+  }
 })
 
 export { App as default }
