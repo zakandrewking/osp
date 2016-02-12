@@ -1,6 +1,6 @@
 'use strict'
 
-import * as d3 from 'd3'
+import d3 from 'd3'
 import { createActionCreators, createReducer, GLOBAL_ACTION, } from 'tinier'
 
 export const CHANGE = '@CHANGE'
@@ -14,8 +14,8 @@ export const actionCreators = {
 }
 
 export const changeReducer = (state, action) => Object.assign({}, state, {
-      lastCurrentIndex: state.currentIndex,
-      currentIndex: action.payload,
+  lastCurrentIndex: state.currentIndex,
+  currentIndex: action.payload,
 })
 
 export const getReducer = function (model) {
@@ -25,13 +25,19 @@ export const getReducer = function (model) {
 export const update = function (localState, appState, el) {
   const sel = d3.select(el)
   const duration = 2000
-  if (localState.index === localState.lastCurrentIndex) {
+  if (localState.currentIndex === localState.lastCurrentIndex) {
+    // double check current style
+    sel
+      .style('display', localState.index === localState.currentIndex ? 'block' : 'none')
+      .style('transform', null)
+      .style('opacity', null)
+  } else if (localState.index === localState.lastCurrentIndex) {
     sel
       .style('transform', 'scale(1)')
       .style('opacity', '1')
       .transition()
       .duration(duration)
-      .ease('cubic-out')
+      .ease('cubic-in-out')
       .style('transform', (localState.currentIndex > localState.lastCurrentIndex ?
                            'scale(10)' : 'scale(0.1)'))
       .style('opacity', '0')
@@ -49,7 +55,7 @@ export const update = function (localState, appState, el) {
         .style('opacity', '0')
         .transition()
         .duration(duration)
-        .ease('cubic-out')
+        .ease('cubic-in-out')
         .style('transform', 'scale(1)')
         .style('opacity', '1')
         .each('end', () => {

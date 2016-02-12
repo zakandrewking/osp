@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="yes"?>
+
+<DASSTYLE>
+  <STYLESHEET>
+    <CATEGORY id="transcription">
+      <TYPE id="refSeq">
+        <GLYPH>
+          <ANCHORED_ARROW>
+            <HEIGHT>20</HEIGHT>
+            <FGCOLOR>darkgreen</FGCOLOR>
+            <PARALLEL>yes</PARALLEL>
+            <LABEL>yes</LABEL>
+            <BUMP>yes</BUMP>
+          </ANCHORED_ARROW>
+        </GLYPH>
+      </TYPE>
+    </CATEGORY>
+  </STYLESHEET>
+</DASSTYLE>

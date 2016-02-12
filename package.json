@@ -1,7 +1,7 @@
 {
   "name": "osp",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.2.0",
+  "description": "Open Science Prize demo site",
   "main": "src/main.js",
   "repository": "github:zakandrewking/osp",
   "scripts": {
@@ -18,28 +18,18 @@
     "bio-pv": "^1.8.1",
     "css-loader": "^0.23.1",
     "d3": "^3.5.12",
+    "dalliance": "^0.13.5",
     "escher-vis": "^1.4.0-beta.6",
     "file-loader": "^0.8.5",
-    "font-awesome": "^4.5.0",
-    "font-awesome-webpack": "0.0.4",
-    "less": "^2.6.0",
-    "less-loader": "^2.2.2",
-    "lodash": "^4.3.0",
-    "purecss": "^0.6.0",
+    "json-loader": "^0.5.4",
+    "raw-loader": "^0.5.1",
     "redux": "^3.3.1",
-    "redux-logger": "^2.5.0",
+    "script-loader": "^0.6.1",
+    "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.0",
     "tinier": "^0.3.0",
     "url-loader": "^0.5.7",
-    "virtual-dom": "^2.1.1",
     "webpack": "^1.12.12",
-    "webpack-dev-server": "^1.14.1",
-    "babel-plugin-transform-react-jsx": "^6.5.0",
-    "babel-preset-react": "^6.5.0",
-    "json-loader": "^0.5.4",
-    "raw-loader": "^0.5.1",
-    "source-map-loader": "^0.1.5"
-  },
-  "devDependencies": {
+    "webpack-dev-server": "^1.14.1"
   }
 }
