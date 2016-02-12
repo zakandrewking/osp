@@ -21,12 +21,12 @@ export const NavButtons = createView({
     sel.append('button')
       .attr('id', 'button-in')
       .attr('class', 'my-button')
-      .text('⬆')
+      .text('⬆\uFE0E')
       .on('click', actionWithAddress(localState.addressedActionIn) || null)
     sel.append('button')
       .attr('id', 'button-out')
       .attr('class', 'my-button')
-      .text('⬇')
+      .text('⬇\uFE0E')
       .on('click', actionWithAddress(localState.addressedActionOut) || null)
   },
 
