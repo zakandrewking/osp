@@ -19,12 +19,30 @@
   transform: translate(-50%, -50%);
 }
 
+.webgl-message {
+  text-align: center;
+  height: 60%;
+  width: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 img.title-img {
   width: 90%;
 }
 
 img.cell-img {
   width: 50%;
+}
+
+img.protein-screen {
+  position: relative;
+  top: 0;
+  left: 0;
+  transform: none;
+  width: 100%;
 }
 
 img {
@@ -40,7 +58,6 @@ img {
   top: 50px;
   z-index: 10;
   position: absolute;
-  font-size: 150%;
 }
 
 span.hidden {
@@ -56,14 +73,13 @@ span.hidden {
   text-align: center;
   cursor: pointer;
   font-family: inherit;
-  font-size: 100%;
+  font-size: 32px;
   padding: 0.5em 1em;
   color: rgba(0, 0, 0, 0.80);
   border: none rgba(0, 0, 0, 0);
   background-color: #E6E6E6;
   text-decoration: none;
   border-radius: 2px;
-  z-index: 10;
 }
 
 .my-button:hover {
