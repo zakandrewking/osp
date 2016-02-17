@@ -1,5 +1,5 @@
 const path = require('path')
-// const webpack = require('webpack')
+const webpack = require('webpack')
 
 module.exports = {
   entry: [ 'babel-polyfill', './src/main.js' ],
@@ -7,20 +7,14 @@ module.exports = {
     path: __dirname,
     filename: 'bundle.min.js'
   },
-  // plugins: [
-  //   new webpack.optimize.UglifyJsPlugin({ minimize: true }),
-  //   new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
-  // ],
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin({ minimize: true }),
+    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
+  ],
   resolve: { fallback: path.join(__dirname, 'node_modules') },
   resolveLoader: { fallback: path.join(__dirname, 'node_modules') },
   devtool: 'source-map',
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\/tinier\/lib\/.*\.js$/,
-    //     loader: 'source-map-loader',
-    //   }
-    // ],
     loaders: [
       {
         test: /\.css$/,
@@ -35,10 +29,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/
       },
-      // {
-      //   test: /\.pdb$/,
-      //   loader: 'raw-loader',
-      // }
     ]
   }
 };
