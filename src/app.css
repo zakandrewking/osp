@@ -10,6 +10,10 @@
   left: 0;
 }
 
+.page {
+  will-change: transform, opacity;
+}
+
 .genome-center {
   height: 60%;
   width: 90%;
