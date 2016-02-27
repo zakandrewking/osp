@@ -4,7 +4,7 @@ import d3 from 'd3'
 import { createView, createAsyncActionCreators, createReducer,
          addressAction, addressRelFrom, } from 'tinier'
 
-import { Title, Cell, Pathway, Protein, Genome, } from './pages'
+import { Title, Cell, Pathway, Protein, Genome, Questions, } from './pages'
 import * as showHide from './showHide'
 import NavButtons from './NavButtons'
 
@@ -32,7 +32,7 @@ export const App = createView({
   name: 'App',
 
   model: {
-    pages: [ Title, Cell, Pathway, Protein, Genome, ],
+    pages: [ Title, Cell, Pathway, Protein, Genome, Questions, ],
     navButtons: NavButtons,
   },
 
@@ -41,7 +41,7 @@ export const App = createView({
     const decActionAddress = addressAction(DEC, addressRelFrom([ 'navButtons' ]))
 
     return {
-      pages: [ Title, Cell, Pathway, Protein, Genome, ].map((view, i) => view.init(i, currentIndex)),
+      pages: [ Title, Cell, Pathway, Protein, Genome, Questions, ].map((view, i) => view.init(i, currentIndex)),
       navButtons: NavButtons.init(incActionAddress, decActionAddress, currentIndex),
       currentIndex,
       lastCurrentIndex: null,
@@ -71,11 +71,12 @@ export const App = createView({
   update: function (localState, appState, el) {
     return {
       pages: [
-        getOrAppend(el, 'div', 'title',   { class: 'page' }),
-        getOrAppend(el, 'div', 'cell',    { class: 'page' }),
-        getOrAppend(el, 'div', 'pathway', { class: 'page' }),
-        getOrAppend(el, 'div', 'protein', { class: 'page' }),
-        getOrAppend(el, 'div', 'genome',  { class: 'page' }),
+        getOrAppend(el, 'div', 'title',     { class: 'page' }),
+        getOrAppend(el, 'div', 'cell',      { class: 'page' }),
+        getOrAppend(el, 'div', 'pathway',   { class: 'page' }),
+        getOrAppend(el, 'div', 'protein',   { class: 'page' }),
+        getOrAppend(el, 'div', 'genome',    { class: 'page' }),
+        getOrAppend(el, 'div', 'questions', { class: 'page' }),
       ],
       navButtons: getOrAppend(el, 'div', 'nav-buttons'),
     }

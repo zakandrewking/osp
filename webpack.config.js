@@ -15,12 +15,6 @@ module.exports = {
   resolveLoader: { fallback: path.join(__dirname, 'node_modules') },
   devtool: 'source-map',
   module: {
-    // preLoaders: [
-    //   {
-    //     test: /\/tinier\/lib\/.*\.js$/,
-    //     loader: 'source-map-loader',
-    //   }
-    // ],
     loaders: [
       {
         test: /\.css$/,
@@ -35,10 +29,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/
       },
-      {
-        test: /\.pdb$/,
-        loader: 'raw-loader',
-      }
     ]
   }
 };
