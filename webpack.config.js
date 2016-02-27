@@ -35,10 +35,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/
       },
-      {
-        test: /\.pdb$/,
-        loader: 'raw-loader',
-      }
     ]
   }
 };

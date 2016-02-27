@@ -23,6 +23,16 @@ img.title-img {
   width: 90%;
 }
 
+img.title-questions-img {
+  width: 60%;
+}
+
+img.start-img {
+  top: 20px;
+  left: 175px;
+  width: 150px;
+}
+
 img.cell-img {
   width: 50%;
 }
@@ -77,4 +87,43 @@ span.hidden {
   opacity: 0.40;
   cursor: not-allowed;
   box-shadow: none;
+}
+
+.overlay {
+  position: absolute;
+  background-color: rgba(245, 226, 229, 0.91);
+  font-size: 2.0em;
+  padding: 30px;
+  font-weight: 200;
+  width: 60%;
+  text-align: justify;
+  border-radius: 4px;
+}
+
+@media (max-width: 850px)
+{
+  .overlay {
+    font-size: 1.6em;
+  }
+}
+
+.bottom {
+  bottom: 5%;
+}
+
+.top {
+  top: 5%;
+}
+
+.left {
+  left: 5%;
+}
+
+.right {
+  right: 5%;
+}
+
+.center {
+  left: 50%;
+  transform: translate(-50%, 0);
 }

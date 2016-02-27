@@ -31,6 +31,10 @@ export const Title = createView({
       .append('img')
       .attr('src', 'logo.svg')
       .attr('class', 'title-img')
+    sel
+      .append('img')
+      .attr('src', 'start-here.svg')
+      .attr('class', 'start-img')
   },
 
   update: showHide.update,
@@ -48,6 +52,10 @@ export const Cell = createView({
       .append('img')
       .attr('src', 'cell.svg')
       .attr('class', 'cell-img')
+    sel.append('div')
+      .attr('class', 'overlay bottom left')
+      .text('This demo provides a glimpse of the multi-scale visualizations that ' +
+            'will be possible with Escher Cell.')
   },
 
   update: showHide.update,
@@ -60,7 +68,8 @@ export const Pathway = createView({
   getReducer: showHide.getReducer,
 
   create: function (localState, appState, el) {
-    const escher_sel = d3.select(el).append('div').attr('class', 'escher-container')
+    const sel = d3.select(el)
+    const escher_sel = sel.append('div').attr('class', 'escher-container')
     escher.Builder(map_json, null, null, escher_sel, {
       reaction_data: reaction_data,
       reaction_styles: [ 'abs', 'color', 'size', 'text' ],
@@ -70,6 +79,10 @@ export const Pathway = createView({
       enable_keys: false,
       zoom_to_element: {type: 'reaction', id: '1576769' },
     })
+    sel.append('div')
+      .attr('class', 'overlay bottom right')
+      .text('Visualize omics data on biochemical pathways. Try panning and ' +
+            'zooming to see more of central metabolism.')
   },
 
   update: showHide.update,
@@ -99,6 +112,11 @@ export const Protein = createView({
     viewer.setCenter(structure.center())
     viewer.setRotation([ 0.17, 0.14,  0.97, 0.09, 0.98, -0.16, -0.97, 0.12,  0.15 ])
     viewer.autoZoom()
+    sel.append('div')
+      .attr('class', 'overlay bottom left')
+      .text('Stepping into the visualization reveals interactive protein structures. ' +
+            'Try rotating the structure for the glyceraldehye-3-phosphate ' +
+            'dehydrogenase enzyme.')
   },
 
   update: showHide.update,
@@ -150,7 +168,45 @@ export const Genome = createView({
         },
       ],
     })
+    sel.append('div')
+      .attr('class', 'overlay bottom right')
+      .text('Stepping down another level reveals the gene in the context of the genome. ' +
+            'A fully featured genome browser will be available for visualizing ' +
+            'omics data. Try zooming out to see nearby genes.')
   },
+
+  update: showHide.update,
+})
+
+export const Questions = createView({
+  name: 'Questions',
+  init: showHide.init,
+  actionCreators: showHide.actionCreators,
+  getReducer: showHide.getReducer,
+
+  create: function (localState, appState, el) {
+    const sel = d3.select(el)
+    sel
+      .append('img')
+      .attr('src', 'logo.svg')
+      .attr('class', 'title-questions-img')
+    const d = sel.append('div')
+            .attr('class', 'overlay top center')
+    d.append('span')
+      .text('Right now, Escher Cell is just a demo. When we get started, you ' +
+            'will be able to follow our progress on ')
+    d.append('a')
+      .attr('href', 'https://github.com/escher/escher-cell')
+      .text('GitHub')
+    d.append('span')
+      .text('. If you have questions, you can contact Zachary King at zaking [at] ucsd ' +
+            '[dot] edu. Source code for this demo is available ')
+    d.append('a')
+      .attr('href', 'https://github.com/zakandrewking/osp')
+      .text('here')
+    d.append('span')
+      .text('.')
+},
 
   update: showHide.update,
 })
