@@ -14,10 +14,6 @@ import * as showHide from './showHide'
 import 'escher-vis/css/dist/builder.css'
 import map_json from './e_coli_core.Core metabolism'
 import reaction_data from './reaction_data_iJO1366'
-import pdb_file from './4wnc.pdb'
-
-const WAIT_READY = '@WAIT_READY'
-const READY = '@READY'
 
 export const Title = createView({
   name: 'Title',
@@ -95,8 +91,21 @@ export const Protein = createView({
   actionCreators: showHide.actionCreators,
   getReducer: showHide.getReducer,
 
-  create: function (localState, appState, el, actions) {
+  create: function (state, appState, el, actions) {
     const sel = d3.select(el)
+    if (!pv.isWebGLSupported()) {
+      const cont = sel.append('div').attr('class', 'webgl-message')
+      cont.append('h3')
+        .text('Cannot display the interactive protein viewer')
+      cont.append('p')
+        .text('WebGL not supported by this browser. ')
+        .append('a')
+        .attr('href', 'https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API')
+        .attr('target', '_blank')
+        .text('Learn more about WebGL')
+      cont.append('img').attr('class', 'protein-screen').attr('src', 'protein_screen.png')
+      return
+    }
     sel.style('display', 'block')
     var options = {
       width: 'auto',
@@ -106,12 +115,14 @@ export const Protein = createView({
       fog: false,
     }
     const viewer = pv.Viewer(el, options)
-    const structure = pv.io.pdb(pdb_file)
-    const obj = viewer.cartoon('protein', structure,
-                               { color: pv.color.ssSuccession() })
-    viewer.setCenter(structure.center())
-    viewer.setRotation([ 0.17, 0.14,  0.97, 0.09, 0.98, -0.16, -0.97, 0.12,  0.15 ])
-    viewer.autoZoom()
+    pv.io.fetchPdb('http://www.rcsb.org/pdb/files/4WNC.pdb', structure => {
+      if (!structure) throw Error('Could not load structure')
+      const obj = viewer.cartoon('protein', structure,
+                                 { color: pv.color.ssSuccession() })
+      viewer.setCenter(structure.center())
+      viewer.setRotation([ 0.17, 0.14,  0.97, 0.09, 0.98, -0.16, -0.97, 0.12,  0.15 ])
+      viewer.autoZoom()
+    })
     sel.append('div')
       .attr('class', 'overlay bottom left')
       .text('Stepping into the visualization reveals interactive protein structures. ' +
