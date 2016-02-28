@@ -1,5 +1,8 @@
 const path = require('path')
 const webpack = require('webpack')
+const process = require('process')
+const minimize = process.argv.indexOf('--minimize') !== -1
+const plugins  = minimize ? [ new webpack.optimize.UglifyJsPlugin() ] : []
 
 module.exports = {
   entry: [ 'babel-polyfill', './src/main.js' ],
@@ -7,10 +10,7 @@ module.exports = {
     path: __dirname,
     filename: 'bundle.min.js'
   },
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin({ minimize: true }),
-    new webpack.DefinePlugin({ 'process.env.NODE_ENV': '"development"' }),
-  ],
+  plugins: plugins,
   resolve: { fallback: path.join(__dirname, 'node_modules') },
   resolveLoader: { fallback: path.join(__dirname, 'node_modules') },
   devtool: 'source-map',
