@@ -26,7 +26,7 @@ export const Title = createView({
     sel
       .append('img')
       .attr('src', 'logo.svg')
-      .attr('class', 'title-img')
+      .attr('class', 'title-img centered')
     sel
       .append('img')
       .attr('src', 'start-here.svg')
@@ -47,7 +47,7 @@ export const Cell = createView({
     sel
       .append('img')
       .attr('src', 'cell.svg')
-      .attr('class', 'cell-img')
+      .attr('class', 'cell-img centered')
     sel.append('div')
       .attr('class', 'overlay bottom left')
       .text('This demo provides a glimpse of the multi-scale visualizations that ' +
@@ -103,7 +103,9 @@ export const Protein = createView({
         .attr('href', 'https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API')
         .attr('target', '_blank')
         .text('Learn more about WebGL')
-      cont.append('img').attr('class', 'protein-screen').attr('src', 'protein_screen.png')
+      cont.append('img')
+        .attr('class', 'protein-screen centered')
+        .attr('src', 'protein_screen.png')
       return
     }
     sel.style('display', 'block')
@@ -197,25 +199,25 @@ export const Questions = createView({
 
   create: function (localState, appState, el) {
     const sel = d3.select(el)
-    sel
-      .append('img')
-      .attr('src', 'logo.svg')
-      .attr('class', 'title-questions-img')
     const d = sel.append('div')
             .attr('class', 'overlay top center')
-    d.append('span')
+    d.append('img')
+      .attr('src', 'logo.svg')
+      .attr('class', 'title-questions-img')
+    const p = d.append('p')
+    p.append('span')
       .text('Right now, Escher Cell is just a demo. When we get started, you ' +
             'will be able to follow our progress on ')
-    d.append('a')
+    p.append('a')
       .attr('href', 'https://github.com/escher/escher-cell')
       .text('GitHub')
-    d.append('span')
+    p.append('span')
       .text('. If you have questions, you can contact Zachary King at zaking [at] ucsd ' +
             '[dot] edu. Source code for this demo is available ')
-    d.append('a')
+    p.append('a')
       .attr('href', 'https://github.com/zakandrewking/osp')
       .text('here')
-    d.append('span')
+    p.append('span')
       .text('.')
 },
 

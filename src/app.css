@@ -33,37 +33,38 @@
   transform: translate(-50%, -50%);
 }
 
-img.title-img {
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.title-img {
   width: 90%;
 }
 
-img.title-questions-img {
-  width: 60%;
+.title-questions-img {
+  width: 100%;
 }
 
-img.start-img {
-  top: 20px;
-  left: 175px;
+.start-img {
+  position: absolute;
+  top: 7px;
+  left: 110px;
   width: 150px;
 }
 
-img.cell-img {
+.cell-img {
   width: 50%;
 }
 
-img.protein-screen {
+.protein-screen {
   position: relative;
   top: 0;
   left: 0;
   transform: none;
   width: 100%;
-}
-
-img {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 #nav-buttons {
@@ -112,18 +113,29 @@ span.hidden {
 .overlay {
   position: absolute;
   background-color: rgba(245, 226, 229, 0.91);
-  font-size: 2.0em;
+  font-size: 1.6em;
   padding: 30px;
   font-weight: 200;
-  width: 60%;
+  width: 50%;
   text-align: justify;
   border-radius: 4px;
 }
 
-@media (max-width: 850px)
+.overlay>p {
+  text-indent: 1.5em;
+}
+
+@media (min-width: 850px)
 {
   .overlay {
-    font-size: 1.6em;
+    font-size: 2.0em;
+  }
+}
+
+@media (max-width: 450px)
+{
+  .overlay {
+    font-size: 1.2em;
   }
 }
 
@@ -132,7 +144,7 @@ span.hidden {
 }
 
 .top {
-  top: 5%;
+  top: 15%;
 }
 
 .left {
